@@ -1,0 +1,81 @@
+//https://codeforces.com/problemset/problem/1145/A
+#include<iostream>
+#include<vector>
+using namespace std;
+class sorted
+{
+	public:
+		int pos;
+		bool st;
+
+};
+sorted check_sorted(int array[],int left,int right)
+{
+
+	sorted result;
+	int flag=-1,i;
+	for( i=left;i<=right-1;i++)
+	{
+		if(array[i]>array[i+1])
+		{
+			flag=1;
+			break;
+
+		}
+	}
+	if(flag==1)
+	{
+		result.pos=i;
+		result.st=false;
+	
+	}
+	else
+	{
+		result.pos=right;
+                result.st=true;
+
+	}
+	return result;
+
+}
+int thanos_sort(int array[],int left,int right)
+{
+
+	sorted res=check_sorted(array,left,right);
+	if(res.st==true)
+	{
+		return right-left+1;
+	}
+	int middle=(left+right)/2;
+	if(res.pos>middle)
+	{
+		thanos_sort(array,left,middle);
+		
+	}
+	else
+	{
+	
+		thanos_sort(array, middle+1,right);
+	}
+
+
+}
+
+main()
+{
+
+	int n;
+	cin>>n;
+	int array[n];
+	int i;
+	for(i=0;i<n;i++)
+	{
+		cin>>array[i];
+	}
+	int res=thanos_sort(array,0,n-1);
+	cout<<res<<endl;
+
+	
+
+
+}
