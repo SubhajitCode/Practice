@@ -20,26 +20,31 @@ int flatten(vector<int> input,int K)
     int N=input.size();
     int total=pow(2,N);
     int minNum=INT_MAX;
-    for(int mask=0;mask<total;mask++)
+    if(happyCheck(input,K))
     {
-        int tmp=1;
-        vector<int> input_cpy(input);
-        for(int i=0;i<N;i++)
-        {
-            tmp=1<<i;
-            if(mask&tmp)
-            {
-                input_cpy.erase(input_cpy.begin()+input_cpy.size()-1-i);
-            }
-        }
+        int size=input.size();
+        int removed=N-size;
+        minNum=min(removed,minNum);
+    }
+    for(int i=0;i<N;i++)
+    {
+        vector<int> input_cpy=input;
+
+        input_cpy.erase(input_cpy.begin()+input_cpy.size()-1-i);
         if(happyCheck(input_cpy,K))
         {
             int size=input_cpy.size();
             int removed=N-size;
             minNum=min(removed,minNum);
         }
+        else
+        {
+            int ret=flatten(input_cpy,K);
+            minNum=min(ret+1,minNum);
+        }
+        
+        
     }
-
     return minNum;
 }
 int main()
