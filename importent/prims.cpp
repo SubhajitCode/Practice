@@ -16,7 +16,7 @@ int prims(int start,vector<pair<int,int>> adj[],int A)
         visited[vertex]=true;
         
         minCost+=weight;
-        for(int i = 0;i < adj[vertex].size();i++)
+        for(int i = 0;i < adj[vertex].size();i++)//i<=V
         {
             int y = adj[vertex][i].second;
             if(!visited[y])

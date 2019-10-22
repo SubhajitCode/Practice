@@ -19,18 +19,34 @@ string convertToNewString(const string &s) {
 string longestPalindromeSubstring(const string &s) {
     string Q = convertToNewString(s);
     int C=0,R=-1,rad;
-    int P[N];
     for(int i=0;i<Q.size();i++)
     {
         
         if(i<=R)
         {
             int mirror=2*C-i;
-            rad=min(Q[mirror],)
+            /*
+            rad=radius from i can be 
+            case a) =P[mirror] if P[mirror]<(R-i)
+                    else i+rad will extend beyond R
+            case b) R-i else 
+
+            */
+            rad=min(P[mirror],R-i);
         }
         else
         {
             rad=0;
+        }
+        while((i+rad+1)<Q.length()&&(i-rad-1)>=0&&Q[i+rad+1]==Q[i-rad-1])
+        {
+            rad++;
+        }
+        P[i]=rad;
+        if(i+rad-1>R)
+        {
+            C=i;
+            R=i+rad-1;
         }
         
     }
