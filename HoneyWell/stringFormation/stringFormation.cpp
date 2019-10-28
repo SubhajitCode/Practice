@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+//index in currect string index in dict tindex is current target index
 int util(vector<string> dict,string target,int index,int tindex,int match) //match standsfor no of charecter  matched with taget string
 {
     
