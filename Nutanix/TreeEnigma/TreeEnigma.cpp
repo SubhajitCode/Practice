@@ -17,7 +17,7 @@ Node* watson(vector<int> graph[],vector<int> &arr,vector<int>& brr,int root,bool
     int incorrect=(arr[root-1]!=brr[root-1]);
     for(int i=0;i<graph[root].size();i++)
     {
-        cout<<"test3 "<<i<<" "<<root<<endl; 
+        //cout<<"test3 "<<i<<" "<<root<<endl; 
         if(!visited[graph[root][i]])
         {
             visited[graph[root][i]]=true;
@@ -31,36 +31,40 @@ Node* watson(vector<int> graph[],vector<int> &arr,vector<int>& brr,int root,bool
     rootNode->incorrect=incorrect;
     return rootNode;
 }
-int Lestrade(Node* root,int op1,int op2)
+int Lestrade(Node* root,int op1,int op2,vector<int> &arr,vector<int> &brr)
 {
 
     int res=0;
     if(op2%2==1)
     {
+        arr[root->name-1]=!arr[root->name-1];
         int tmp=root->incorrect;
         root->incorrect=root->correct;
         root->correct=tmp;
     }
 
-    if(root->correct+2<=root->incorrect)
+    if(root->correct+1<=root->incorrect && arr[root->name-1]!=brr[root->name - 1])
     {
+
         op2++;
         res++;
+        arr[root->name-1]=brr[root->name - 1];
         int tmp=root->incorrect;
         root->incorrect=root->correct;
         root->correct=tmp;
     }
-    else if(root->incorrect>0)
+    else if(arr[root->name-1]!=brr[root->name - 1])
     {
         op1++;
         res++;
+        arr[root->name-1]=brr[root->name - 1];
         root->correct++;
         root->incorrect--;
     }
 
     for(Node* child:root->childrens)
     {
-        res+=Lestrade(child,op1,op2);
+        res+=Lestrade(child,op1,op2,arr,brr);
     }
     cout<<root->name<<" "<<res<<endl;
     return res;
@@ -81,10 +85,13 @@ int sherlock(vector<int> graph[],vector<int> &arr,vector<int>& brr)
     memset(visited,false,sizeof(visited));
     Node* rootNode=watson(graph,arr,brr,root,visited);
     printWatson(rootNode);
-     cout<<"break"<<endl;
-    int ans=Lestrade(rootNode,0,0);
+    cout<<"break"<<endl;
+    int ans=Lestrade(rootNode,0,0,arr,brr);
     cout<<"break"<<endl;
     printWatson(rootNode);
+    cout<<"break"<<endl;
+    for(int i=0;i<arr.size();i++)
+        cout<<arr[i]<<" "<<brr[i]<<endl;
     return ans;
 
 }
@@ -101,16 +108,7 @@ int main()
         graph[x].push_back(y);
         graph[y].push_back(x);
     }
-    for(int i=1;i<N;i++)
-    {
-        for(int j=0;j<graph[i].size();j++)
-        {
-            cout<<graph[i][j]<<" ";
-        }
-        cout<<endl;
-
-    }
-    cout<<"test"<<endl;
+    //cout<<"test"<<endl;
     vector<int>arr;
     vector<int>brr;
     for(int i=0;i<N;i++)
@@ -125,7 +123,7 @@ int main()
         cin>>b;
         brr.push_back(b);
     }
-    cout<<"test2"<<endl;
+    //cout<<"test2"<<endl;
     cout<< sherlock(graph,arr,brr)<<endl;
 
 }
