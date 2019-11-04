@@ -30,12 +30,12 @@ class unionfind
         return i;
     }
 
-    void myUnion(int i,int j)
+    bool myUnion(int i,int j)
     {
             int xset =find(i);
             int yset =find(j);
             if(xset==yset)
-                return;
+                return true;
             if(parrent[xset]>parrent[yset])
             {
                 swap(xset,yset);
@@ -43,6 +43,7 @@ class unionfind
             int tmp=parrent[yset];
             parrent[yset]=xset;
             parrent[xset]=parrent[xset]+tmp;
+            return false;
     }
     long components()
     {

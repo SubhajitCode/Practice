@@ -9,7 +9,7 @@ struct Node
     Node(int x):name(x)
     {}
 };
-Node* watson(vector<int> graph[],vector<int> &arr,vector<int>& brr,int root,bool visited[])
+Node* watson(vector<int> graph[],vector<int> &arr,vector<int>& brr,int root,bool visited[]) //builds the graph
 {
     visited[root]=true;
     Node *rootNode=new Node(root);
@@ -17,7 +17,6 @@ Node* watson(vector<int> graph[],vector<int> &arr,vector<int>& brr,int root,bool
     int incorrect=(arr[root-1]!=brr[root-1]);
     for(int i=0;i<graph[root].size();i++)
     {
-        //cout<<"test3 "<<i<<" "<<root<<endl; 
         if(!visited[graph[root][i]])
         {
             visited[graph[root][i]]=true;
@@ -31,7 +30,7 @@ Node* watson(vector<int> graph[],vector<int> &arr,vector<int>& brr,int root,bool
     rootNode->incorrect=incorrect;
     return rootNode;
 }
-int Lestrade(Node* root,int op1,int op2,vector<int> &arr,vector<int> &brr)
+int Lestrade(Node* root,int op1,int op2,vector<int> &arr,vector<int> &brr) //calculates no of ops required greedy
 {
 
     int res=0;
@@ -43,7 +42,7 @@ int Lestrade(Node* root,int op1,int op2,vector<int> &arr,vector<int> &brr)
         root->correct=tmp;
     }
 
-    if(root->correct+1<=root->incorrect && arr[root->name-1]!=brr[root->name - 1])
+    if(root->correct+2<=root->incorrect && arr[root->name-1]!=brr[root->name - 1])
     {
 
         op2++;
