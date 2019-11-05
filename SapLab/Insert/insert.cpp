@@ -55,7 +55,6 @@ struct treeNode
             return this->right->find(i,k);
         else 
             return this->left->find(i,k);
-        //return NULL;
     }
 
 };
